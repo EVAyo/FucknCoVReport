@@ -4,7 +4,7 @@ An automatic python script for CUGB's COVID-19 report
 ## REQUIREMENTS
 pip install requests
 ## USER MANNUL
-### Moddify
+### Modify
 >main.py:  
 >>  
 >>line 27:  ```data = {'username': 'example', 'password': 'example'}```  
@@ -29,6 +29,6 @@ pip install requests
 ### Run
 WINDOWS:  ```python main.py```
 
-Linux:  ```python3 main.py``` or set a crontab  ```30 1 * * * python3 /.../.../FucknCoVReport/main.py```
-## Statement
+Linux:  ```python3 main.py``` or ***(Recommend)*** set a crontab  ```30 1 * * * python3 /.../.../FucknCoVReport/main.py```
+## STATEMENT
 Some core code is from the author cmzz on CSDN (url: https://blog.csdn.net/qq_40965177/article/details/105986587)
