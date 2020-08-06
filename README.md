@@ -29,6 +29,6 @@ pip install requests
 ### Run
 WINDOWS:  ```python main.py```
 
-Linux:  ```python3 main.py``` or set a crontab  
+Linux:  ```python3 main.py``` or set a crontab  ```30 1 * * * python3 /.../.../FucknCoVReport/main.py```
 ## Statement
 Some core code is from the author cmzz on CSDN (url: https://blog.csdn.net/qq_40965177/article/details/105986587)
