@@ -12,8 +12,8 @@ class PCPost:
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Linux; Android 10; PCT-AL10 Build/HUAWEIPCT-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/78.0.3904.62 XWEB/2575 MMWEBSDK/200701 Mobile Safari/537.36 MMWEBID/4039 MicroMessenger/7.0.17.1720(0x27001137) Process/tools WeChat/arm64 NetType/WIFI Language/en ABI/arm64',
             'Referer': 'http://stu.cugb.edu.cn/webApp/xuegong/index.html',
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'Content-Length': '783'}
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}#,
+            #'Content-Length': '783'}
         # mock the others
         # self.headers ={'User-Agent': 'Mozilla/5.0(WindowsNT6.1;rv:2.0.1)Gecko/20100101Firefox/4.0.1'}
         self.session = requests.session()
