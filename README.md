@@ -1,6 +1,6 @@
 # FucknCoVReport
 An automatic python script for CUGB's COVID-19 report  
-中国地质大学（北京）疫情期间每日自动进行健康打卡上报
+中国地质大学（北京）疫情期间每日自动进行健康打卡上报  
 ***免责声明（Disclaimer）：使用该脚本而可能引起的法律责任和学校追究等责任由使用者个人承担，与开发者无关。为了您和他人的健康着想，请在有位置变动和情况变化时手动填写申报！***
 ## UPDATES
 ### **2020/08/25 (Upcoming) - The upcoming update version will resolve:**  
