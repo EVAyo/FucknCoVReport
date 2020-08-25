@@ -6,8 +6,10 @@ import iMessage
 import base64
 
 
-class PCPost:
+class STUPost:
     def __init__(self):
+        self.uname = 'example'  # Your Student Number, e.g. 2001200001
+        self.upwd = 'example'  # You ID card: last 6 numbers, e.g. 123456
         self.cookies = {}
         # mock the build-in browser of WeChat:
         self.headers = {
@@ -22,22 +24,22 @@ class PCPost:
 
     def login(self):
         try:
-            #Request the cookie and token from the origin web:
-            originurl = 'http://stu.cugb.edu.cn'
-            req = self.session.get(originurl)
+            # Request the cookie and token from the origin web:
+            token_url = 'http://stu.cugb.edu.cn'
+            req = self.session.get(token_url)
             set_cookie = requests.utils.dict_from_cookiejar(req.cookies)
-            header_cookie = 'JSESSIONID' + '=' + str(set_cookie['JSESSIONID']) + ';' + 'token' + '=' + str(set_cookie['token'])
-            #Add the cookie and token into headers:
+            header_cookie = 'JSESSIONID' + '=' + str(set_cookie['JSESSIONID']) + ';' \
+                            + 'token' + '=' + str(set_cookie['token'])
+
+            # Add the cookie and token into headers:
             self.headers['Cookie'] = header_cookie
             url = 'http://stu.cugb.edu.cn//login/Login.htm'
-            uname = 'example'  # Your Student Number, e.g. 2001200001
-            upwd = 'example'  # You ID card: last 6 numbers, e.g. 123456
             # A new feature for the site that uses base64 encoding for the username and password, and uses token:
-            uname_encrypt = str(base64.b64encode(uname.encode('utf-8')), 'utf-8')
-            upwd_encrypt = str(base64.b64encode(upwd.encode('utf-8')), 'utf-8')
+            uname_encrypt = str(base64.b64encode(self.uname.encode('utf-8')), 'utf-8')
+            upwd_encrypt = str(base64.b64encode(self.upwd.encode('utf-8')), 'utf-8')
             token = str(set_cookie['token'])
             data = {'username': uname_encrypt, 'password': upwd_encrypt, 'verification': '', 'token': token}
-            req = self.session.post(url=url, data=data, headers=self.headers)
+            self.session.post(url=url, data=data, headers=self.headers)
             time.sleep(10)
             # cookies = requests.utils.dict_from_cookiejar(req.cookies)
             # for key in cookies:
@@ -48,7 +50,8 @@ class PCPost:
             content = self.session.post(
                 'http://stu.cugb.edu.cn/webApp/xuegong/index.html#/zizhu/apply?projectId=4a4ce9d6725c1d4001725e38fbdb07cd&type=YQSJCJ')
             # The Link used in the web browsers (random stamp/timestamp exists, unresolved):
-            # content = self.session.post('http://stu.cugb.edu.cn:80/syt/zzapply/apply.htm?type=yqsjcj&judge=sq&xmid=4a4ce9d6725c1d4001725e38fbdb07cd&_t=809439&_winid=w6236')
+            # content = self.session.post(
+            #   'http://stu.cugb.edu.cn:80/syt/zzapply/apply.htm?type=yqsjcj&judge=sq&xmid=4a4ce9d6725c1d4001725e38fbdb07cd&_t=809439&_winid=w6236')
             if content.status_code == 200:
                 self.message1 = "Login status: Succeeded"
                 time.sleep(10)
@@ -59,7 +62,7 @@ class PCPost:
             self.message1 = 'Error Code 0: ' + str(e)
 
     def clock_in(self):
-        #cookie_para = {i.split("=")[0]: i.split("=")[1] for i in cookie.split("; ")}
+        # cookie_para = {i.split("=")[0]: i.split("=")[1] for i in cookie.split("; ")}
         data = {
             'data': '''{"xmqkb":{"id":"4a4ce9d6725c1d4001725e38fbdb07cd"},"location_address":"浙江省XX市XX街道XX社区","location_longitude":"123.123123","location_latitude":"32.32132","c1":"36.9℃以下","c2":"健康","c17":"否","c4":"否","c5":"否","c6":"否","c18":"正常","c7":"否","type":"YQSJCJ"}''',
             'msgUrl': '''syt/zzapply/list.htm?type=YQSJCJ&xmid=4a4ce9d6725c1d4001725e38fbdb07cd''',
@@ -69,7 +72,7 @@ class PCPost:
         try:
             r = self.session.request('POST', url='http://stu.cugb.edu.cn/syt/zzapply/operation.htm',
                                      headers=self.headers, data=data)
-            #print(r.status_code)
+            # print(r.status_code)
             if r.text == 'success':
                 self.message2 = 'Clocking-in status: Succeeded'
             elif r.text == 'Applied today':
@@ -80,7 +83,7 @@ class PCPost:
             self.message2 = 'Error Code 1: ' + str(e)
 
 if __name__ == '__main__':
-    student = PCPost()
+    student = STUPost()
     student.login()
     iMessage.send_Message(News=student.message1 + "\n" + student.message2,
-                          sub="Fuck-nCoV-Report: " + student.message2)
+                          sub="FucknCoVReport: " + student.message2)
