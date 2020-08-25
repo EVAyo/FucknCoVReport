@@ -4,11 +4,11 @@ An automatic python script for CUGB's COVID-19 report
 ***免责声明（Disclaimer）：使用该脚本而可能引起的法律责任和学校追究等责任由使用者个人承担，与开发者无关。为了您和他人的健康着想，请在有位置变动和情况变化时手动填写申报！***
 ## UPDATES
 **2020/08/25 (Upcoming) - The upcoming update version will resolve:**  
-1. In the upcoming campus life, the Big Brother will take the MAE (Morning, Afteroon and Evening) clock-in measures.
-2. Epidemic prevention should not torment students and the other ordinary people and formalism does harm.  
+- In the upcoming campus life, the Big Brother will take the MAE (Morning, Afteroon and Evening) clock-in measures.
+- Epidemic prevention should not torment students and the other ordinary people and formalism does harm.  
 **2020/08/14 - This update version resolved:**  
-1. A new feature for the site that uses base64 encoding for the username and password, and uses token.
-2. Fixed some bugs.
+- A new feature for the site that uses base64 encoding for the username and password, and uses token.
+- Fixed some bugs.
 ## REQUIREMENTS
 pip install requests
 ## USER MANNUL (Updated on 2020/08/14)
