@@ -64,7 +64,8 @@ class STUPost:
     def clock_in(self):
         # cookie_para = {i.split("=")[0]: i.split("=")[1] for i in cookie.split("; ")}
         data = {
-            'data': '''{"xmqkb":{"id":"4a4ce9d6725c1d4001725e38fbdb07cd"},"location_address":"浙江省XX市XX街道XX社区","location_longitude":"123.123123","location_latitude":"32.32132","c1":"36.9℃以下","c2":"健康","c17":"否","c4":"否","c5":"否","c6":"否","c18":"正常","c7":"否","type":"YQSJCJ"}''',
+            'data': '''{"xmqkb":{"id":"4a4ce9d6725c1d4001725e38fbdb07cd"},"location_address":"北京市海淀区学院路街道成府路18号中国地质大学(北京)","location_longitude":"116.349317","location_latitude":"39.99266","c1":"36.9℃以下","c2":"健康","c17":"否","c4":"否","c5":"否","c6":"否","c18":"正常","c7":"否","type":"YQSJCJ"}''',
+            #'data': '''{"xmqkb":{"id":"4a4ce9d6725c1d4001725e38fbdb07cd"},"location_address":"浙江省XX市XX街道XX社区","location_longitude":"123.123123","location_latitude":"32.32132","c1":"36.9℃以下","c2":"健康","c17":"否","c4":"否","c5":"否","c6":"否","c18":"正常","c7":"否","type":"YQSJCJ"}''',
             'msgUrl': '''syt/zzapply/list.htm?type=YQSJCJ&xmid=4a4ce9d6725c1d4001725e38fbdb07cd''',
             'uploadFileStr': '''{}''', 'multiSelectData': '''{}'''}
         # Notice: "location_longitude" should be like "123.123123", and "location_latitude" should be like "32.32132"
