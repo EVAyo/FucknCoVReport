@@ -1,8 +1,10 @@
 # FucknCoVReport
-An automatic python script for CUGB's COVID-19 report  
-中国地质大学（北京）疫情期间每日自动进行健康打卡上报  
-***免责声明（Disclaimer）：使用该脚本而可能引起的法律责任和学校追究等责任由使用者个人承担，与开发者无关。为了您和他人的健康着想，请在有位置变动和情况变化时手动填写申报！***
+An automatic python script for CUGB's school-leaving and COVID-19 report  
+中国地质大学（北京）疫情期间备案制出校自动申请与每日自动进行健康打卡上报  
+***免责声明（Disclaimer）：使用该脚本而可能引起的法律责任和学校追究等责任由使用者个人承担，与开发者无关，请勿滥用。为了您和他人的健康着想，请如实填写出校信息，在有位置变动和情况变化时手动填写申报！***
 ## UPDATES
+### **2020/10/03 - This update version resolved:**
+- Add new capabilities related to school-leaving
 ### **2020/08/25 (Upcoming) - The upcoming update version will resolve:**  
 - In the upcoming campus life, the Big Brother will take the MAE (Morning, Afteroon and Evening) clock-in measures.
 - Epidemic prevention should not torment students and the other ordinary people and formalism does harm.  
