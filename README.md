@@ -3,6 +3,8 @@ An automatic python script for CUGB's COVID-19 report
 中国地质大学（北京）疫情期间每日自动进行健康打卡上报  
 ***免责声明（Disclaimer）：使用该脚本而可能引起的法律责任和学校追究等责任由使用者个人承担，与开发者无关，请勿滥用。为了您和他人的健康着想，请如实填写信息，在有位置变动和情况变化时手动填写申报！***
 ## UPDATES
+### **2021/08/18 - The latest version resolved:**
+- Rebuild the code (now you just need modify the config.json).
 ### **2021/07/08 - The latest version resolved:**
 - Be adapted to the new feature that needs to fill the blank in manually.
 ### **2021/01/24 - This update version resolved:**

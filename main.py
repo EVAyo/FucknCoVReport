@@ -3,31 +3,70 @@ import requests
 from http import cookiejar
 from bs4 import BeautifulSoup
 import time
-#import iMessage
+# import iMessage
 import base64
 import datetime
 import random
 import esprima
 import re
+import json
+from smtplib import SMTP_SSL
+from email.header import Header
+from email.mime.text import MIMEText
+
+
+def send_Message(News='', sub=''):
+    mail_info = {
+        "from": "from_example@gmail.com",
+        "to": "to_example@gmail.com",
+        "hostname": "smtp.gmail.com",
+        "username": "from_example@gmail.com",
+        "password": "example",
+        "mail_subject": sub,
+        "mail_text": News,
+        "mail_encoding": "utf-8"
+    }
+
+    # if __name__ == '__main__':
+    # 这里使用SMTP_SSL就是默认使用465端口
+    try:
+        smtp = SMTP_SSL(mail_info["hostname"])
+        smtp.set_debuglevel(1)
+
+        smtp.ehlo(mail_info["hostname"])
+        smtp.login(mail_info["username"], mail_info["password"])
+
+        msg = MIMEText(mail_info["mail_text"], "plain", mail_info["mail_encoding"])
+        msg["Subject"] = Header(mail_info["mail_subject"], mail_info["mail_encoding"])
+        msg["from"] = mail_info["from"]
+        msg["to"] = mail_info["to"]
+
+        smtp.sendmail(mail_info["from"], mail_info["to"], msg.as_string())
+
+        smtp.quit()
+        print("suceess")
+    except Exception:
+        print("failed")
+
 
 class STUPost:
     def __init__(self):
-        self.uname = ''  # Your Student Number, e.g. 2001200001
-        self.upwd = ''  # Last 6 numbers of your ID card, e.g. 123456 (or the password which is set by yourself)
         self.cookies = {}
         # mock the build-in browser of WeChat:
         self.headers = {
-            'User-Agent': 'Mozilla/5.0 (Linux; Android 10; PCT-AL10 Build/HUAWEIPCT-AL10; wv) AppleWebKit/537.36 ('
-                          'KHTML, like Gecko) Version/4.0 Chrome/78.0.3904.62 XWEB/2575 MMWEBSDK/200701 Mobile '
-                          'Safari/537.36 MMWEBID/4039 MicroMessenger/7.0.17.1720(0x27001137) Process/tools '
-                          'WeChat/arm64 NetType/WIFI Language/en ABI/arm64',
-            'Referer': 'http://stu.cugb.edu.cn/webApp/xuegong/index.html',
+            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.2(0x18000237) NetType/4G Language/en',
+            'Referer': 'https://stu.cugb.edu.cn/webApp/xuegong/index.html',
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
-        # mock the others
-        # self.headers ={'User-Agent': 'Mozilla/5.0(WindowsNT6.1;rv:2.0.1)Gecko/20100101Firefox/4.0.1'}
         self.session = requests.session()
         self.message1 = ''
         self.message2 = ''
+        self.message3 = ''
+        self.subj = ''
+        self.content = ''
+        f = open('config.json', 'r', encoding='utf-8')
+        self.tmp = f.read()
+        f.close()
+        self.userconfig = json.loads(self.tmp)
 
     def login(self):
         try:
@@ -36,8 +75,10 @@ class STUPost:
             soup = BeautifulSoup(req, 'html.parser')
             execution = soup.findAll("input", {"name": "execution"})[0]["value"]
             system = soup.findAll("input", {"id": "userLoginSystem"})[0]["value"]
-            data = {'username': self.uname,
-                    'password': self.upwd,
+            uname = self.userconfig['username']
+            upwd = self.userconfig['password']
+            data = {'username': uname,
+                    'password': upwd,
                     'execution': execution,
                     '_eventId': 'submit',
                     'geolocation': '',
@@ -71,22 +112,25 @@ class STUPost:
         except Exception as e:
             self.message1 = 'Error Code 0: ' + str(e)
 
-
-
     def clock_in(self):
         # cookie_para = {i.split("=")[0]: i.split("=")[1] for i in cookie.split("; ")}
         data = {
-            'data': '''{"xmqkb":{"id":"4a4ce9d6725c1d4001725e38fbdb07cd"},"c1":"37.2℃及以下","c2":"健康","c17":"否",
-            "c4":"否","c5":"否","c6":"否","c9":"否","c7":"否","c19":"36.5","c22":"36.5","type":"YQSJCJ",
-            "location_longitude":"123.123123", "location_latitude":"45.45454","location_address":"XX省XX市XX街道XX小区"}''',
-            # Note: Please change the Line 81
+            'data': str(self.userconfig["data"]).replace("'", '"' ),
+            # 'data': '''{"xmqkb":{"id":"4a4ce9d6725c1d4001725e38fbdb07cd"},"location_address":"浙江省XX市XX街道XX社区",
+            # "location_longitude":"123.123123","location_latitude":"32.32132","c1":"36.9℃以下","c2":"健康","c17":"否",
+            # "c4":"否","c5":"否","c6":"否","c18":"正常","c7":"否","type":"YQSJCJ"}''',
             'msgUrl': '''syt/zzapply/list.htm?type=YQSJCJ&xmid=4a4ce9d6725c1d4001725e38fbdb07cd''',
             'uploadFileStr': '''{}''', 'multiSelectData': '''{}'''}
         # Notice: "location_longitude" should be like "123.123123", and "location_latitude" should be like "32.32132"
+        # data = '''{{'xmqkb':{"id":"4a4ce9d6725c1d4001725e38fbdb07cd"},"location_address":"",
+        # "location_longitude":"","location_latitude":"","c1":"36.9℃以下","c2":"健康","c17":"否","c4":"否","c5":"否",
+        # "c6":"否","c18":"正常","c7":"否","type":"YQSJCJ"},'msgUrl':
+        # "syt/zzapply/list.htm?type=YQSJCJ&xmid=4a4ce9d6725c1d4001725e38fbdb07cd",'uploadFileStr': "{}",
+        # 'multiSelectData': "{}"}}'''
         while True:
             try:
                 r = self.session.request('POST', url='https://stu.cugb.edu.cn:443/syt/zzapply/operation.htm',
-                                        headers=self.headers, cookies=self.cookies, data=data, verify=False)
+                                         headers=self.headers, cookies=self.cookies, data=data, verify=False)
                 # print(r.status_code)
                 if r.text == 'success':
                     self.message2 = 'Clocking-in status: Succeeded'
@@ -114,16 +158,17 @@ class STUPost:
             else:
                 break
 
-    def send_to_wechat(self):
-        api = "https://sc.ftqq.com/[Your API code].send"
+    def send_to_phone(self):
+        api = self.userconfig["push_api"]
         data = {
-            "text": self.subj,
+            "title": self.subj,
             "desp": self.content}
         requests.post(api, data=data, verify=False)
+
 
 if __name__ == '__main__':
     student = STUPost()
     student.login()
-    #iMessage.send_Message(News=student.message1 + "\n" + student.message2,
-    #                      sub="FucknCoVReport: " + student.message2)
-    student.send_to_wechat()
+    # send_Message(News=student.message1 + "\n" + student.message2,
+    #              sub="FucknCoVReport: " + student.message2)
+    student.send_to_phone()
