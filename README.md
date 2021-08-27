@@ -2,6 +2,9 @@
 An automatic python script for CUGB's COVID-19 report  
 中国地质大学（北京）疫情期间每日自动进行健康打卡上报  
 ***免责声明（Disclaimer）：使用该脚本而可能引起的法律责任和学校追究等责任由使用者个人承担，与开发者无关，请勿滥用。为了您和他人的健康着想，请如实填写信息，在有位置变动和情况变化时手动填写申报！***
+## FUNCTIONS
+### - **Submit the personal health information automatically**
+### - **Push the notifications via Email or ServerChan**
 ## UPDATES
 ### **2021/08/18 - The latest version resolved:**
 - Rebuild the code (now you just need modify the config.json).
@@ -21,17 +24,34 @@ An automatic python script for CUGB's COVID-19 report
 pip install requests
 ## USER MANNUL (Updated on 2021/07/08)
 ### Modify
->main.py:  
+>config.json:  
 >>  
->>line 16:  ```self.uname = ''  # Your Student Number, e.g. 2001200001```  
->>line 17:  ```self.upwd = ''  # Last 6 numbers of your ID card, e.g. 123456 (or the password which is set by yourself)```  
->>**For example:  
->>'200120000X' (Your Student Number), '123456' (The Last Six Number of Your ID Card)**  
->>  
->>line 81:  ```"location_longitude":"123.123123", "location_latitude":"45.45454","location_address":"XX省XX市XX街道XX小区"}'''```  
->>**Notice:  
->>The value of "location_longitude" should be like "123.123123", and the value of "location_latitude" should be like "32.32132".In addtion, the two values should be matched with the value of "location_address".**
->>  
+>>{
+>>        ```"username":"username",```  
+>>        ```"password":"password",```  
+>>        ```"data":```  
+>>        ```{```  
+>>                ```"xmqkb":```  
+>>                ```{```  
+>>                        ```"id":"4a4ce9d6725c1d4001725e38fbdb07cd"```  
+>>                ```},```  
+>>                ```"c1":"37.2℃及以下",```  
+>>                ```"c2":"健康",```  
+>>                ```"c17":"否",```  
+>>                ```"c4":"否",```  
+>>                ```"c5":"否",```  
+>>                ```"c6":"否",```  
+>>                ```"c9":"否",```  
+>>                ```"c7":"否",```  
+>>                ```"c19":"36.7",```  
+>>                ```"c22":"36.7",```  
+>>                ```"type":"YQSJCJ",```  
+>>                ```"location_longitude":"116.37951",```  
+>>                ```"location_latitude":"39.594672",```  
+>>                ```"location_address":"北京市海淀区学院路街道中国地质大学(北京)"```  
+>>        ```},```  
+>>        ```"push_api": "https://sctapi.ftqq.com/[api].send"```  
+>>```}```  
 ### Run
 WINDOWS:  ```python main.py```
 
