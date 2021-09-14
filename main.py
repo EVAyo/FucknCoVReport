@@ -101,7 +101,7 @@ class STUPost:
                                        verify=False)
             time.sleep(3)
             content = self.session.post(
-                'http://stu.cugb.edu.cn/webApp/xuegong/index.html#/zizhu/apply?projectId=4a4ce9d6725c1d4001725e38fbdb07cd&type=YQSJCJ',
+                'https://stu.cugb.edu.cn/webApp/xuegong/index.html#/zizhu/apply?projectId=4a4ce9d6725c1d4001725e38fbdb07cd&type=YQSJCJ',
                 verify=False)
             if content.status_code == 200:
                 self.message1 = "Login status: Succeeded"
@@ -116,17 +116,8 @@ class STUPost:
         # cookie_para = {i.split("=")[0]: i.split("=")[1] for i in cookie.split("; ")}
         data = {
             'data': str(self.userconfig["data"]).replace("'", '"' ),
-            # 'data': '''{"xmqkb":{"id":"4a4ce9d6725c1d4001725e38fbdb07cd"},"location_address":"浙江省XX市XX街道XX社区",
-            # "location_longitude":"123.123123","location_latitude":"32.32132","c1":"36.9℃以下","c2":"健康","c17":"否",
-            # "c4":"否","c5":"否","c6":"否","c18":"正常","c7":"否","type":"YQSJCJ"}''',
             'msgUrl': '''syt/zzapply/list.htm?type=YQSJCJ&xmid=4a4ce9d6725c1d4001725e38fbdb07cd''',
             'uploadFileStr': '''{}''', 'multiSelectData': '''{}'''}
-        # Notice: "location_longitude" should be like "123.123123", and "location_latitude" should be like "32.32132"
-        # data = '''{{'xmqkb':{"id":"4a4ce9d6725c1d4001725e38fbdb07cd"},"location_address":"",
-        # "location_longitude":"","location_latitude":"","c1":"36.9℃以下","c2":"健康","c17":"否","c4":"否","c5":"否",
-        # "c6":"否","c18":"正常","c7":"否","type":"YQSJCJ"},'msgUrl':
-        # "syt/zzapply/list.htm?type=YQSJCJ&xmid=4a4ce9d6725c1d4001725e38fbdb07cd",'uploadFileStr': "{}",
-        # 'multiSelectData': "{}"}}'''
         while True:
             try:
                 r = self.session.request('POST', url='https://stu.cugb.edu.cn:443/syt/zzapply/operation.htm',
